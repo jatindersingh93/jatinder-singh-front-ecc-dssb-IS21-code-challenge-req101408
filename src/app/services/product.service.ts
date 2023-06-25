@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
+import { jsonIgnoreReplacer } from 'json-ignore';
 
-const baseUrl = 'http://127.0.0.1:8000/api/products';
+const baseUrl = 'http://localhost:8000/api/products';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,6 @@ export class ProductService {
   getAll(): Observable<Product[]> {
     return this.http.get<Product[]>(baseUrl);
   }
-
   get(id: any): Observable<Product> {
     return this.http.get(`${baseUrl}/${id}`);
   }
@@ -25,8 +25,15 @@ export class ProductService {
     return this.http.post(baseUrl, data);
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+  // update(id: any, data: any): Observable<any> {
+  // update(id: any): Observable<any> {    
+  //   return this.http.put(`${baseUrl}/${id}`, data);
+  // }
+  update(data:any): Observable<Product> {
+    //debugger
+    // const data_json = JSON.stringify(data, jsonIgnoreReplacer);
+
+    return this.http.patch<Product>(`${baseUrl}/${data.id}`, data);
   }
 
   delete(id: any): Observable<any> {
