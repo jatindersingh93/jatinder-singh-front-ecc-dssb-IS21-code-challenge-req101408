@@ -4,8 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { jsonIgnoreReplacer } from 'json-ignore';
+import { formatDate} from '@angular/common';
 
-const baseUrl = 'http://localhost:8000/api/products';
+
+const baseUrl = 'http://127.0.0.1:8000/api/products';
 
 @Injectable({
   providedIn: 'root'
@@ -22,20 +24,14 @@ export class ProductService {
   }
 
   create(data: any): Observable<any> {
-    debugger
-    data.startDate = data.startDate.toLocaleString()
-    data.developers = [{"name":"Stevie"}]
+    //debugger
+    data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
+    data.developers = JSON.stringify(data.developers.split(',').map((x:any) => ({'name': x})))
     return this.http.post(baseUrl, data);
   }
 
-  // update(id: any, data: any): Observable<any> {
-  // update(id: any): Observable<any> {    
-  //   return this.http.put(`${baseUrl}/${id}`, data);
-  // }
   update(data:any): Observable<Product> {
-    //debugger
-    // const data_json = JSON.stringify(data, jsonIgnoreReplacer);
-
+    data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
     return this.http.patch<Product>(`${baseUrl}/${data.id}`, data);
   }
 

@@ -38,8 +38,7 @@ import { jsonIgnore } from "json-ignore";
     })    
   }
   @Input('value')
-  set value(value: string | null) {
-    debugger
+  set value(value: string | null) {    
   }
   addRow() {
     const newRow: Product = {
@@ -52,7 +51,7 @@ import { jsonIgnore } from "json-ignore";
       location: '',
       developers: '',
       isEdit: true,
-      // isSelected: false,      
+      isSelected: false,      
     }
     
     this.dataSource.data = [newRow, ...this.dataSource.data]
@@ -61,7 +60,6 @@ import { jsonIgnore } from "json-ignore";
   //   this.productService.update(row).subscribe(() => row.isEdit = false);
   // }
   editRow(row: Product) {
-    debugger
     if (row.id === 0) {
       this.productService.create(row).subscribe((newProduct: Product) => {
         row.id = newProduct.id
@@ -78,6 +76,10 @@ import { jsonIgnore } from "json-ignore";
     this.valid[id][key] = e.target.validity.valid
   }
   parseJson(str: string): any { 
+    // debugger
+    if (str==''){
+      return ''
+    }
     return JSON.parse(str).map((o:any)=>o.name).join(', ');
   }
   removeRow(id: number) {
@@ -88,6 +90,7 @@ import { jsonIgnore } from "json-ignore";
     // })
   }
   disableSubmit(id: number) {
+    
     if (this.valid[id]) {
       return Object.values(this.valid[id]).some((item) => item === false)
     }
@@ -126,31 +129,31 @@ import { jsonIgnore } from "json-ignore";
         error: (e) => console.error(e)
       });
   }
-  // isAllSelected() {
-  //   return this.dataSource.data.every((item) => item.isSelected)
-  // }
+  isAllSelected() {
+    return this.dataSource.data.every((item) => item.isSelected)
+  }
 
-  // isAnySelected() {
-  //   return this.dataSource.data.some((item) => item.isSelected)
-  // }
+  isAnySelected() {
+    return this.dataSource.data.some((item) => item.isSelected)
+  }
 
-  // selectAll(event: any) {
-  //   this.dataSource.data = this.dataSource.data.map((item) => ({
-  //     ...item,
-  //     isSelected: event.checked,
-  //   }))
-  // }
-  // searchName(): void {
-  //   this.currentProduct = {};
-  //   this.currentIndex = -1;
+  selectAll(event: any) {
+    this.dataSource.data = this.dataSource.data.map((item) => ({
+      ...item,
+      isSelected: event.checked,
+    }))
+  }
+  searchName(): void {
+    this.currentProduct = {};
+    this.currentIndex = -1;
 
-  //   this.productService.findByTitle(this.name)
-  //     .subscribe({
-  //       next: (data) => {
-  //         this.products = data;
-  //         console.log(data);
-  //       },
-  //       error: (e) => console.error(e)
-  //     });
-  // }
+    this.productService.findByTitle(this.name)
+      .subscribe({
+        next: (data) => {
+          this.products = data;
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+  }
 }
