@@ -55,9 +55,6 @@ import { jsonIgnore } from "json-ignore";
     
     this.dataSource.data = [newRow, ...this.dataSource.data]
   }
-  // editRow(row: Product) {
-  //   this.productService.update(row).subscribe(() => row.isEdit = false);
-  // }
   editRow(row: Product) {
     if (row.id === 0) {
       this.productService.create(row).subscribe((newProduct: Product) => {
@@ -75,18 +72,10 @@ import { jsonIgnore } from "json-ignore";
     this.valid[id][key] = e.target.validity.valid
   }
   parseJson(str: string): any { 
-    // debugger
     if (str==''){
       return ''
     }
     return JSON.parse(str).map((o:any)=>o.name).join(', ');
-  }
-  removeRow(id: number) {
-    // this.productService.deleteUser(id).subscribe(() => {
-    //   this.dataSource.data = this.dataSource.data.filter(
-    //     (u: Product) => u.id !== id,
-    //   )
-    // })
   }
   disableSubmit(id: number) {
     

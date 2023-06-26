@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-//import { AddProductComponent } from './components/add-product/add-product.component';
-//import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 
 import { FormsModule } from '@angular/forms';
@@ -27,8 +25,6 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 @NgModule({
   declarations: [
     AppComponent,
-    // AddProductComponent,
-    // ProductDetailsComponent,
     ProductListComponent
   ],
   imports: [

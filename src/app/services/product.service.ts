@@ -24,14 +24,12 @@ export class ProductService {
   }
 
   create(data: any): Observable<any> {
-    //debugger
     data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
     data.developers = JSON.stringify(data.developers.split(',').map((x:any) => ({'name': x})))
     return this.http.post(baseUrl, data);
   }
 
   update(data:any): Observable<Product> {
-    //debugger
     data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
     return this.http.patch<Product>(`${baseUrl}/${data.id}`, data);
   }
