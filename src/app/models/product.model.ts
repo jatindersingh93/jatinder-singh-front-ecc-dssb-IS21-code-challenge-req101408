@@ -9,7 +9,7 @@ export class Product{
     startDate?: string;  
     methodology?: string;    
     location?: string;    
-    isSelected?: boolean;
+    // isSelected?: boolean;
     developers?: string
 
     @jsonIgnore()
@@ -23,11 +23,11 @@ export class Product{
 }
 
 export const ProductColumns = [
-    {
-        key: 'isSelected',
-        type: 'isSelected',
-        label: '',
-    },    
+    // {
+    //     key: 'isSelected',
+    //     type: 'isSelected',
+    //     label: '',
+    // },    
     {
       key: 'id',
       type: 'text',

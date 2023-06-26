@@ -35,23 +35,23 @@
   <table mat-table [dataSource]="dataSource">
     <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
       <th mat-header-cell *matHeaderCellDef [ngSwitch]="col.key">
-        <span *ngSwitchCase="'isSelected'">
+        <!-- <span *ngSwitchCase="'isSelected'">
             <mat-checkbox
               (change)="selectAll($event)"
               [checked]="isAllSelected()"
               [indeterminate]="!isAllSelected() && isAnySelected()"
             ></mat-checkbox>
-        </span>        
+        </span>         -->
         <span *ngSwitchDefault>{{ col.label }}</span>
       </th>
       <td mat-cell *matCellDef="let element">
         <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
-                <ng-container *ngSwitchCase="'isSelected'">
+                <!-- <ng-container *ngSwitchCase="'isSelected'">
                   <mat-checkbox
                     (change)="element.isSelected = $event.checked"
                     [checked]="element.isSelected"
                   ></mat-checkbox>
-                </ng-container>
+                </ng-container> -->
                 <div class="btn-edit" *ngSwitchCase="'isEdit'">
                   <button mat-button (click)="element.isEdit = !element.isEdit">
                     Edit
@@ -69,17 +69,13 @@
             </span>
             <span *ngSwitchCase="'object'">
                 {{ parseJson(element[col.key]) }}
-                  <!-- <span *ngFor="let item of element; let i=index" [attr.data-index]="i">
-                    {{ item }}
-                </span> -->
-                <!-- {{ element[col.key] | json}} -->
             </span>            
             <span *ngSwitchDefault>
                 {{ element[col.key] }}
             </span>
         </div>
         <div [ngSwitch]="col.type" *ngIf="element.isEdit">
-            <div *ngSwitchCase="'isSelected'"></div>
+            <!-- <div *ngSwitchCase="'isSelected'"></div> -->
             <div class="btn-edit" *ngSwitchCase="'isEdit'">
               <button
                 mat-button
@@ -106,6 +102,16 @@
               ></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               
+            </mat-form-field>
+            <mat-form-field class="form-input" *ngSwitchCase="'object'">
+                <input
+                matInput
+                [required]="col.required"
+                [pattern]="col.pattern"
+                [type]="col.type"
+                [value]="parseJson(element[col.key])"
+                (change)="inputHandler($event, element.id, col.key)"
+              />              
             </mat-form-field>
             <mat-form-field class="form-input" *ngSwitchDefault>
               <input

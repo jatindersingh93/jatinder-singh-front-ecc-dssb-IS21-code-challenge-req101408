@@ -37,7 +37,10 @@ import { jsonIgnore } from "json-ignore";
       this.dataSource.data = res
     })    
   }
-
+  @Input('value')
+  set value(value: string | null) {
+    debugger
+  }
   addRow() {
     const newRow: Product = {
       id: 0,
@@ -49,7 +52,7 @@ import { jsonIgnore } from "json-ignore";
       location: '',
       developers: '',
       isEdit: true,
-      isSelected: false,      
+      // isSelected: false,      
     }
     
     this.dataSource.data = [newRow, ...this.dataSource.data]
@@ -74,9 +77,8 @@ import { jsonIgnore } from "json-ignore";
     }
     this.valid[id][key] = e.target.validity.valid
   }
-  parseJson(str: string): any {
-    //debugger
-    return JSON.parse(str);
+  parseJson(str: string): any { 
+    return JSON.parse(str).map((o:any)=>o.name).join(', ');
   }
   removeRow(id: number) {
     // this.productService.deleteUser(id).subscribe(() => {
@@ -124,20 +126,20 @@ import { jsonIgnore } from "json-ignore";
         error: (e) => console.error(e)
       });
   }
-  isAllSelected() {
-    return this.dataSource.data.every((item) => item.isSelected)
-  }
+  // isAllSelected() {
+  //   return this.dataSource.data.every((item) => item.isSelected)
+  // }
 
-  isAnySelected() {
-    return this.dataSource.data.some((item) => item.isSelected)
-  }
+  // isAnySelected() {
+  //   return this.dataSource.data.some((item) => item.isSelected)
+  // }
 
-  selectAll(event: any) {
-    this.dataSource.data = this.dataSource.data.map((item) => ({
-      ...item,
-      isSelected: event.checked,
-    }))
-  }
+  // selectAll(event: any) {
+  //   this.dataSource.data = this.dataSource.data.map((item) => ({
+  //     ...item,
+  //     isSelected: event.checked,
+  //   }))
+  // }
   // searchName(): void {
   //   this.currentProduct = {};
   //   this.currentIndex = -1;

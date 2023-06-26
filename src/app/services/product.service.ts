@@ -22,6 +22,9 @@ export class ProductService {
   }
 
   create(data: any): Observable<any> {
+    debugger
+    data.startDate = data.startDate.toLocaleString()
+    data.developers = [{"name":"Stevie"}]
     return this.http.post(baseUrl, data);
   }
 
