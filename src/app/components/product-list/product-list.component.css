@@ -6,7 +6,20 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+mat-toolbar.mat-toolbar.mat-toolbar-single-row {
+  background: #b0b0b0;;
+  color: #fff;
+}
 .mdc-button {
-  background-color: gray;
+  background-color: lightgray;
   margin: 10px;
+}
+tr.mat-mdc-header-row.mdc-data-table__header-row.cdk-header-row {
+  background-color: #333;
+}
+.mdc-data-table__header-cell{
+  color: #fff;
+}
+tr:nth-child(even) {
+  background-color: #eaf8e6;;
 }
