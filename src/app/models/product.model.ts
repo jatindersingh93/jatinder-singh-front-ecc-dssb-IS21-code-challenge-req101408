@@ -24,11 +24,6 @@ export class Product{
 export const ProductColumns = [
 
     {
-      key: 'id',
-      type: 'text',
-      label: 'id',
-    },
-    {
       key: 'name',
       type: 'text',
       label: 'Name',
