@@ -31,6 +31,7 @@ export class ProductService {
   }
 
   update(data:any): Observable<Product> {
+    //debugger
     data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
     return this.http.patch<Product>(`${baseUrl}/${data.id}`, data);
   }

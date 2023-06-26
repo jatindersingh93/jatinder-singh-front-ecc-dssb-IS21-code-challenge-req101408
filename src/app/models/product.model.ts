@@ -8,8 +8,7 @@ export class Product{
     masterName?: string;  
     startDate?: string;  
     methodology?: string;    
-    location?: string;    
-    isSelected?: boolean;
+    location?: string;
     developers?: string
 
     @jsonIgnore()
@@ -23,11 +22,7 @@ export class Product{
 }
 
 export const ProductColumns = [
-    {
-        key: 'isSelected',
-        type: 'isSelected',
-        label: '',
-    },    
+
     {
       key: 'id',
       type: 'text',

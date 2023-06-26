@@ -50,8 +50,7 @@ import { jsonIgnore } from "json-ignore";
       methodology: '',
       location: '',
       developers: '',
-      isEdit: true,
-      isSelected: false,      
+      isEdit: true,     
     }
     
     this.dataSource.data = [newRow, ...this.dataSource.data]
@@ -128,20 +127,6 @@ import { jsonIgnore } from "json-ignore";
         },
         error: (e) => console.error(e)
       });
-  }
-  isAllSelected() {
-    return this.dataSource.data.every((item) => item.isSelected)
-  }
-
-  isAnySelected() {
-    return this.dataSource.data.some((item) => item.isSelected)
-  }
-
-  selectAll(event: any) {
-    this.dataSource.data = this.dataSource.data.map((item) => ({
-      ...item,
-      isSelected: event.checked,
-    }))
   }
   searchName(): void {
     this.currentProduct = {};
