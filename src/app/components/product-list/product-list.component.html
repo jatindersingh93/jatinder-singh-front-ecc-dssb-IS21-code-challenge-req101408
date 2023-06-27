@@ -73,6 +73,7 @@
                 [type]="col.type"
                 [(ngModel)]="element[col.key]"
                 (change)="inputHandler($event, element.id, col.key)"
+                [disabled]="col.key ==='id'"
               />
             </mat-form-field>
         </div>
