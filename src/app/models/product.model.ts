@@ -21,6 +21,7 @@ export class Product{
     
 }
 
+// Set table coloum header
 export const ProductColumns = [
 
     {

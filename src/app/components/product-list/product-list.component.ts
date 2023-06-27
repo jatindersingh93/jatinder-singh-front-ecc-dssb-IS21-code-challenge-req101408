@@ -21,7 +21,7 @@ import { jsonIgnore } from "json-ignore";
   name = '';
   displayedColumns: string[] = ProductColumns.map((col) => col.key)
   columnsSchema: any = ProductColumns
-  columns = ["Name","Owner Name","Master Name", "Methodology", "Location"];
+  totalProducts = 0;
   
 
   dataSource = new MatTableDataSource<Product>();
@@ -34,12 +34,14 @@ import { jsonIgnore } from "json-ignore";
   ngOnInit(): void {
     this.retrieveProduct();
     this.productService.getAll().subscribe((res: any) => {
-      this.dataSource.data = res
+      this.dataSource.data = res   
+      this.totalProducts = res.length   
     })    
   }
   @Input('value')
   set value(value: string | null) {    
   }
+  // Trigger with Add Product 
   addRow() {
     const newRow: Product = {
       id: 0,
@@ -54,7 +56,9 @@ import { jsonIgnore } from "json-ignore";
     }
     
     this.dataSource.data = [newRow, ...this.dataSource.data]
+    this.totalProducts = this.dataSource.filteredData.length
   }
+  // Handle Product edit and create
   editRow(row: Product) {
     if (row.id === 0) {
       this.productService.create(row).subscribe((newProduct: Product) => {
@@ -71,12 +75,15 @@ import { jsonIgnore } from "json-ignore";
     }
     this.valid[id][key] = e.target.validity.valid
   }
+  // Parse array object on fly
   parseJson(str: string): any { 
     if (str==''){
       return ''
     }
     return JSON.parse(str).map((o:any)=>o.name).join(', ');
   }
+
+  //button disable function
   disableSubmit(id: number) {
     
     if (this.valid[id]) {
@@ -84,6 +91,8 @@ import { jsonIgnore } from "json-ignore";
     }
     return false
   }
+
+  // Main call to pull data
   retrieveProduct(): void {
     this.productService.getAll()
       .subscribe({
@@ -91,41 +100,6 @@ import { jsonIgnore } from "json-ignore";
           this.products = data;
           this.dataSource.data = data;
              console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
-  refreshList(): void {
-    this.retrieveProduct();
-    this.currentProduct = {};
-    this.currentIndex = -1;
-  }
-
-  setActiveProduct(product: Product, index: number): void {
-    this.currentProduct = product;
-    this.currentIndex = index;
-  }
-
-  removeAllProduct(): void {
-    this.productService.deleteAll()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.refreshList();
-        },
-        error: (e) => console.error(e)
-      });
-  }
-  searchName(): void {
-    this.currentProduct = {};
-    this.currentIndex = -1;
-
-    this.productService.findByTitle(this.name)
-      .subscribe({
-        next: (data) => {
-          this.products = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });

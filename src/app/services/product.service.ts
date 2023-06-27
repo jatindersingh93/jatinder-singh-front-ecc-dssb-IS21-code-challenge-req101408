@@ -22,7 +22,6 @@ export class ProductService {
   get(id: any): Observable<Product> {
     return this.http.get(`${baseUrl}/${id}`);
   }
-
   create(data: any): Observable<any> {
     data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
     data.developers = JSON.stringify(data.developers.split(',').map((x:any) => ({'name': x})))
@@ -36,13 +35,5 @@ export class ProductService {
 
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
-  }
-
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
-  }
-
-  findByTitle(title: any): Observable<Product[]> {
-    return this.http.get<Product[]>(`${baseUrl}?title=${title}`);
   }
 }
