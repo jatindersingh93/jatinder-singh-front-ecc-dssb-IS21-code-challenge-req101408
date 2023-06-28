@@ -7,7 +7,6 @@ import { jsonIgnoreReplacer } from 'json-ignore';
 import { formatDate} from '@angular/common';
 
 
-//const baseUrl = 'http://localhost:8006/api/products';
 const baseUrl = 'http://localhost:3000/api/products';
 
 @Injectable({
