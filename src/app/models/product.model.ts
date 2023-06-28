@@ -26,7 +26,7 @@ export const ProductColumns = [
 
     {
       key: 'id',
-      type: 'id',
+      type: 'text',
       label: 'id',
     },
     {

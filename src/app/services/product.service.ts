@@ -7,7 +7,7 @@ import { jsonIgnoreReplacer } from 'json-ignore';
 import { formatDate} from '@angular/common';
 
 
-const baseUrl = 'http://localhost:3000/api/products';
+const baseUrl = 'http://127.0.0.1:8000/api/products';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,12 @@ export class ProductService {
   get(id: any): Observable<Product> {
     return this.http.get(`${baseUrl}/${id}`);
   }
-  create(data: any): Observable<any> {
+  create(data: any): Observable<Product> {
     data.startDate = formatDate(data.startDate, 'yyyy-MM-dd', 'en-US');
-    data.developers = JSON.stringify(data.developers.split(',').map((x:any) => ({'name': x})))
-    return this.http.post(baseUrl, data);
+    data.developers = data.developers.split(',').map((x:any) => ({'name': x}))
+    //data = JSON.stringify(data)    
+    //data.developers = JSON.stringify(data.developers.split(',').map((x:any) => ({'name': x})))
+    return this.http.post<Product>(baseUrl, data);
   }
 
   update(data:any): Observable<Product> {

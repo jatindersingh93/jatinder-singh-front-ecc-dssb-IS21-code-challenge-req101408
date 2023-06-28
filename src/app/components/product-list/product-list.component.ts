@@ -61,9 +61,10 @@ import { jsonIgnore } from "json-ignore";
   // Handle Product edit and create
   editRow(row: Product) {
     if (row.id === 0) {
-      this.productService.create(row).subscribe((newProduct: Product) => {
+      this.productService.create(row).subscribe((newProduct: any) => {
         row.id = newProduct.id
         row.isEdit = false
+        row.developers = JSON.stringify(row.developers)
       })
     } else {
       this.productService.update(row).subscribe(() => row.isEdit = false);
@@ -76,7 +77,7 @@ import { jsonIgnore } from "json-ignore";
     this.valid[id][key] = e.target.validity.valid
   }
   // Parse array object on fly
-  parseJson(str: string): any { 
+  parseJson(str: string): any {
     if (str==''){
       return ''
     }
